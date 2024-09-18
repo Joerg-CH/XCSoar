@@ -1,7 +1,7 @@
 # German translation for xcsoar
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the xcsoar package.
-# Korrekturen eingearbeitet nach "J:\Prog\XCSoar-master\de-po.txt"
+# 2024-09-18 Korrekturen siehe "J:\Prog\XCSoar-master\de-po.txt"
 #
 msgid ""
 msgstr ""
@@ -1744,20 +1744,20 @@ msgstr "Initialisiere Anzeige"
 #. Show progress dialog
 #: src/Startup.cpp:602 src/Startup.cpp:640 src/Startup.cpp:708
 msgid "Shutdown, please wait..."
-msgstr "Abschalten, bitte warten..."
+msgstr "XCSoar beenden, bitte warten..."
 
 #: src/Startup.cpp:616
 msgid "Shutdown, saving logs..."
-msgstr "Abschalten, speichere Logs..."
+msgstr "XCSoar beenden, speichere Logs..."
 
 #. Save settings to profile
 #: src/Startup.cpp:637
 msgid "Shutdown, saving profile..."
-msgstr "Abschalten, speichere Profil..."
+msgstr "XCSoar beenden, speichere Profil..."
 
 #: src/Startup.cpp:698
 msgid "Shutdown, saving task..."
-msgstr "Abschalten, speichere Aufgabe..."
+msgstr "XCSoar beenden, speichere Aufgabe..."
 
 #: src/Device/Descriptor.cpp:400 src/Device/Descriptor.cpp:413
 msgid "Unable to open port"
@@ -2613,7 +2613,7 @@ msgstr "Luftschiff"
 #: src/Dialogs/Device/FLARM/ConfigWidget.cpp:124
 #, no-c-format
 msgid "Unmanned aerial vehicle"
-msgstr "Drohne"
+msgstr "UAV"
 
 #: src/Dialogs/Device/FLARM/ConfigWidget.cpp:125
 #, no-c-format
@@ -3176,7 +3176,7 @@ msgstr "Ungültig"
 #: src/Dialogs/Traffic/TrafficList.cpp:327
 #: src/Dialogs/Traffic/FlarmTrafficDetails.cpp:301
 msgid "Competition ID"
-msgstr "Wettbewerbsnummer"
+msgstr "Wettbewerbskennzeichen"
 
 #: src/Dialogs/Traffic/TrafficList.cpp:346
 #: src/Dialogs/Settings/Panels/PagesConfigPanel.cpp:174
@@ -3268,7 +3268,7 @@ msgstr "FLARM Sperre"
 
 #: src/Dialogs/Traffic/TeamCodeDialog.cpp:188
 msgid "Unknown Competition Number"
-msgstr "Unbekannte Wettbewerbsnummer"
+msgstr "Unbekanntes Wettbewerbskennzeichen"
 
 #: src/Dialogs/Traffic/TeamCodeDialog.cpp:189
 msgid "Not Found"
@@ -7760,15 +7760,15 @@ msgstr "Maximale Abfluggeschwindigkeit überschritten"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:22
 msgid "In sector, arm advance when ready"
-msgstr "Im Sektor, 'Weiter' aktivieren, wenn bereit"
+msgstr "Im Sektor, 'abflugbereit' drücken, wenn bereit"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:24
 msgid "Arm"
-msgstr "Bereit"
+msgstr "Abflugbereit"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:34 src/Monitor/MatTaskMonitor.cpp:44
 msgid "Dismiss"
-msgstr "Verwerfen"
+msgstr "Nicht abfliegen"
 
 #: src/Monitor/MatTaskMonitor.cpp:32
 msgid "Add this turn point?"
@@ -8215,7 +8215,7 @@ msgstr "Thermik - Höhengewinn"
 #: src/InfoBoxes/Content/Factory.cpp:299
 #, no-c-format
 msgid "TC Gain"
-msgstr "Bart H Gewinn"
+msgstr "Thermik H Gewinn"
 
 #: src/InfoBoxes/Content/Factory.cpp:300
 #, no-c-format
@@ -9873,7 +9873,7 @@ msgstr "Thermikdauer"
 #: src/InfoBoxes/Content/Factory.cpp:1070
 #, no-c-format
 msgid "TC Time"
-msgstr "Bart Zeit"
+msgstr "Thermik Dauer"
 
 #: src/InfoBoxes/Content/Factory.cpp:1071
 #, no-c-format
