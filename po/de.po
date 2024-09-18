@@ -7760,7 +7760,7 @@ msgstr "Maximale Abfluggeschwindigkeit überschritten"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:22
 msgid "In sector, arm advance when ready"
-msgstr "Im Sektor, 'abflugbereit' drücken, wenn bereit"
+msgstr "Im Sektor, 'Abflugbereit' drücken, wenn bereit"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:24
 msgid "Arm"
