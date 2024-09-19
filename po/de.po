@@ -1,7 +1,7 @@
 # German translation for xcsoar
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the xcsoar package.
-# 2024-09-18 Korrekturen siehe "J:\Prog\XCSoar-master\de-po.txt"
+# 2024-09-19 Korrekturen siehe "J:\Prog\XCSoar-master\de-po.txt"
 #
 msgid ""
 msgstr ""
@@ -662,7 +662,7 @@ msgstr "Flug herunterladen fehlgeschlagen."
 #: src/Logger/ExternalLogger.cpp:337
 #, fuzzy
 msgid "Do you want to upload this flight to WeGlide?"
-msgstr "Möchtest Du einen weiteren Flug hochladen?"
+msgstr "Möchtest Du diesen Flug auf WeGlide hochladen?"
 
 #: src/Logger/ExternalLogger.cpp:338
 #, fuzzy
@@ -7123,7 +7123,7 @@ msgstr ""
 #: src/Dialogs/Settings/Panels/WeGlideConfigPanel.cpp:70
 msgid "Allow download of declared tasks from Weglide in the Task Manager."
 msgstr ""
-"Erlaube den Download von deklarierten Aufgaben von Weglide im "
+"Erlaube den Download von deklarierten Aufgaben von WeGlide im "
 "Aufgabenmanager."
 
 #: src/Dialogs/Settings/Panels/WeGlideConfigPanel.cpp:73
@@ -7135,7 +7135,7 @@ msgid ""
 "Asks whether to upload flight to Weglide, after flight is downloaded from "
 "external logger."
 msgstr ""
-"Fragt, ob der Flug nach Weglide hochgeladen werden soll, nachdem der Flug "
+"Fragt, ob der Flug nach WeGlide hochgeladen werden soll, nachdem der Flug "
 "von einem externen Logger heruntergeladen wurde."
 
 #: src/Dialogs/Settings/Panels/WeGlideConfigPanel.cpp:79
@@ -7760,7 +7760,7 @@ msgstr "Maximale Abfluggeschwindigkeit überschritten"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:22
 msgid "In sector, arm advance when ready"
-msgstr "Im Sektor, 'Abflugbereit' drücken, wenn bereit"
+msgstr "Im Sektor, 'abflugbereit' drücken, wenn bereit"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:24
 msgid "Arm"
@@ -7768,7 +7768,7 @@ msgstr "Abflugbereit"
 
 #: src/Monitor/TaskAdvanceMonitor.cpp:34 src/Monitor/MatTaskMonitor.cpp:44
 msgid "Dismiss"
-msgstr "Nicht abfliegen"
+msgstr "Abbrechen"
 
 #: src/Monitor/MatTaskMonitor.cpp:32
 msgid "Add this turn point?"
@@ -9927,7 +9927,7 @@ msgstr ""
 #: src/InfoBoxes/Content/Factory.cpp:1095
 #, fuzzy, no-c-format
 msgid "The currently set Transponder code"
-msgstr "Transponder code"
+msgstr "Aktueller Transponder code"
 
 #: src/InfoBoxes/Content/Factory.cpp:1101
 #, no-c-format
