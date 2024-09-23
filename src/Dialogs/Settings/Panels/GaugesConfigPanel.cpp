@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The XCSoar Project
-// Added 'Bottom center' for Thermal Assistant as test for flarm radar
 
 #include "GaugesConfigPanel.hpp"
 #include "Profile/Keys.hpp"
@@ -73,9 +72,6 @@ static constexpr StaticEnumChoice thermal_assistant_position_list[] = {
   { UISettings::ThermalAssistantPosition::BOTTOM_LEFT_AVOID_IB,
     N_("Bottom left (avoid infoboxes)"),
     N_("Show thermal assistant in bottom left, above/to right of infoboxes (if there).") },
-  { UISettings::ThermalAssistantPosition::BOTTOM_CENTER,
-    N_("Bottom center)"),
-    N_("Show thermal assistant in bottom center.") },
   { UISettings::ThermalAssistantPosition::BOTTOM_RIGHT,
     N_("Bottom right"),
     N_("Show thermal assistant in bottom right.") },
@@ -84,7 +80,6 @@ static constexpr StaticEnumChoice thermal_assistant_position_list[] = {
     N_("Show thermal assistant in bottom right above/to left of infoboxes (if there).") },
   nullptr
 };
-
 
 class GaugesConfigPanel final : public RowFormWidget, DataFieldListener {
 public:
