@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The XCSoar Project
-// Test für flarm radar und TA (center)
+// Test für flarm radar und TA (center: auf Bottom right codiert)
 
 #include "MainWindow.hpp"
 #include "MapWindow/GlueMapWindow.hpp"
@@ -287,15 +287,11 @@ MainWindow::ReinitialiseLayoutTA(PixelRect rc,
     rc.right = GetMainRect().right;
     rc.left = rc.right - sz;
     break;
-  case (UISettings::ThermalAssistantPosition::BOTTOM_CENTER):
+  case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT):
     rc.bottom = GetMainRect().bottom;
     rc.left = (rc.left + rc.right - sz) / 2 - 1;
     rc.right = rc.left + sz;
     rc.top = rc.bottom - height;
-    break;
-  case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT):
-    rc.right = GetMainRect().right;
-    rc.left = rc.right - sz;
     break;
   default: // BOTTOM_LEFT
     rc.left = GetMainRect().left;
