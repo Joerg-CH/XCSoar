@@ -287,9 +287,9 @@ MainWindow::ReinitialiseLayoutTA(PixelRect rc,
     rc.left = rc.right - sz;
     break;
   case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT):
-    rc.right = GetMainRect().right;
-    rc.left = rc.right - sz;
-    break;
+    rc.top = GetMainRect().top;
+    rc.left = (rc.left + rc.right - sz) / 2 - 1;
+    rc.right = rc.left + sz;
   default: // BOTTOM_LEFT
     rc.left = GetMainRect().left;
     rc.right = rc.left + sz;
