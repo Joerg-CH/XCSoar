@@ -81,6 +81,7 @@ static constexpr StaticEnumChoice thermal_assistant_position_list[] = {
   nullptr
 };
 
+
 class GaugesConfigPanel final : public RowFormWidget, DataFieldListener {
 public:
   GaugesConfigPanel()
