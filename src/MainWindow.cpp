@@ -290,6 +290,7 @@ MainWindow::ReinitialiseLayoutTA(PixelRect rc,
     rc.top = GetMainRect().top;
     rc.left = (rc.left + rc.right - sz) / 2 - 1;
     rc.right = rc.left + sz;
+    break;
   default: // BOTTOM_LEFT
     rc.left = GetMainRect().left;
     rc.right = rc.left + sz;
