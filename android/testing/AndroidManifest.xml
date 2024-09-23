@@ -3,7 +3,7 @@
           package="org.xcsoar.testing"
           android:installLocation="auto"
           android:versionCode="170"
-          android:versionName="7.44.1">
+          android:versionName="7.44.3">
   <application
       android:requestLegacyExternalStorage="true"
       android:preserveLegacyExternalStorage="true"
