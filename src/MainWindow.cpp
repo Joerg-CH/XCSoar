@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The XCSoar Project
+// Test for center position of Thermal Assistant (line 273...)
 
 #include "MainWindow.hpp"
 #include "MapWindow/GlueMapWindow.hpp"
@@ -281,15 +282,20 @@ MainWindow::ReinitialiseLayoutTA(PixelRect rc,
     rc.left = GetMainRect().left;
     rc.right = rc.left + sz;
     break;
+    
+// TEST: BOTTOM_RIGHT_AVOID_IB will be used for CENTER_BOTTOM_AVOID_IB
   case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT_AVOID_IB):
     rc.bottom = GetMainRect().bottom;
-    rc.right = GetMainRect().right;
-    rc.left = rc.right - sz;
+    rc.left = (GetMainRect().left + GetMainRect().right -sz) /2 +1;
+    rc.right = rc.left + sz;
     break;
+    
+// TEST: BOTTOM_RIGHT will be used for CENTER_BOTTOM
   case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT):
-    rc.right = GetMainRect().right;
-    rc.left = rc.right - sz;
+    rc.left = (rc.left + rc.right -sz) /2 +1;
+    rc.right = rc.left + sz;
     break;
+    
   default: // BOTTOM_LEFT
     rc.left = GetMainRect().left;
     rc.right = rc.left + sz;
