@@ -417,13 +417,13 @@ MainWindow::ReinitialiseLayout_flarm(PixelRect rc,
     break;
 
   case TrafficSettings::GaugeLocation::CENTER_TOP:
-    rc.left = (GetMainRect().left + GetMainRect().right) / 2 - width - 1;
+    rc.left = (rc.left + rc.right - width) / 2 - 1;
     rc.right = rc.left + width;
     rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::CENTER_BOTTOM:
-    rc.left = (GetMainRect().left + GetMainRect().right) / 2 - width - 1;
+    rc.left = (rc.left + rc.right - width) / 2 - 1;
     rc.right = rc.left + width;
     rc.top = rc.bottom - height;
     break;
