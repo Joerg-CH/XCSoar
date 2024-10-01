@@ -402,14 +402,13 @@ MainWindow::ReinitialiseLayout_flarm(PixelRect rc,
   unsigned height = ib_layout.control_size.height * 2;
   
   // Verwenden von sz statt width / height
-  unsigned sz = std::min(layout.control_size.height,
-                         layout.control_size.width) * 2;
+  unsigned sz = std::min(width, height);
   // Prüfen, ob sz < 0,5 MapWindow (höhe, breite) mw
   unsigned mw = std::min((GetMainRect().right - GetMainRect().left), (GetMainRect().bottom - GetMainRect().top));
   // Durchmesser von TA und FR: dmr
-  unsigned dmr = std::min(sz,mw);
+  unsigned dmr = std::min(sz, mw / 2);
   
-// Ersetze dmr und dmr mit dmr für alle Berechnungen des FR:
+// Ersetze width und height mit dmr für alle Berechnungen des FR:
   switch (val) {
   case TrafficSettings::GaugeLocation::TOP_LEFT:
     rc.right = rc.left + dmr;
