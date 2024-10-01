@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: GPL-2.0-or-later
 // Copyright The XCSoar Project
 
@@ -270,33 +269,43 @@ MainWindow::ReinitialiseLayout_vario(const InfoBoxLayout::Layout &layout) noexce
 }
 
 void
+// Test von 4 Positionen mit Größe des TA 2 IB hoch/breit bzw. 1/2 Kartenfenster hoch/breit
+// sz ist die Größe des TA wie bisher, mw ist das Kartenfenster, dmr der berechnete Durchmesser des TA
+
+
 MainWindow::ReinitialiseLayoutTA(PixelRect rc,
                                  const InfoBoxLayout::Layout &layout) noexcept
 {
   unsigned sz = std::min(layout.control_size.height,
-                         layout.control_size.width) * 2;
-
+                         layout.control_size.width) * 2; // der kleinere Wert von 2 x IB-Höhe oder -Breite
+  unsigned mw = std::min((GetMainRect().bottom - GetMainRect().top), (GetMainRect().right - GetMainRect().left)); // der kleinere Wert der Kartenfenster-Höhe oder -Breite
+  unsigned dmr = std:min(sz, mw / 2); // der kleinere Wert von sz oder mw/2
+  
   switch (CommonInterface::GetUISettings().thermal_assistant_position) {
-  case (UISettings::ThermalAssistantPosition::BOTTOM_LEFT_AVOID_IB):
+  case (UISettings::ThermalAssistantPosition::BOTTOM_LEFT_AVOID_IB):  // Test MIT Größenanpassung
     rc.bottom = GetMainRect().bottom;
     rc.left = GetMainRect().left;
-    rc.right = rc.left + sz;
+    rc.right = rc.left + dmr;
+    rc.top = rc.bottom - dmr;
     break;
-  case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT_AVOID_IB):
+  case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT_AVOID_IB): // wie bisher
     rc.bottom = GetMainRect().bottom;
     rc.right = GetMainRect().right;
     rc.left = rc.right - sz;
+    rc.top = rc.bottom - sz;
     break;
-  case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT):
+  case (UISettings::ThermalAssistantPosition::BOTTOM_RIGHT): // Test MIT Größenanpassung
     rc.right = GetMainRect().right;
-    rc.left = rc.right - sz;
+    rc.left = rc.right - dmr;
+    rc.top = rc.bottom - dmr;
     break;
   default: // BOTTOM_LEFT
     rc.left = GetMainRect().left;
     rc.right = rc.left + sz;
+    rc.top = rc.bottom - sz;
     break;
   }
-  rc.top = rc.bottom - sz;
+ // rc.top = rc.bottom - sz; jeweils oben in die 4 Fälle integriert
   thermal_assistant.Move(rc);
 }
 
@@ -400,95 +409,82 @@ MainWindow::ReinitialiseLayout_flarm(PixelRect rc,
 
   unsigned width = ib_layout.control_size.width * 2;
   unsigned height = ib_layout.control_size.height * 2;
-  
-  // Verwenden von sz statt width / height
-  unsigned sz = std::min(width, height);
-  // Prüfen, ob sz < 0,5 MapWindow (höhe, breite) mw
-  unsigned mw = std::min((GetMainRect().right - GetMainRect().left), (GetMainRect().bottom - GetMainRect().top));
-  // Durchmesser von TA und FR: dmr
-  unsigned dmr = std::min(sz, mw / 2);
-  
-// Ersetze width und height mit dmr für alle Berechnungen des FR:
+
   switch (val) {
   case TrafficSettings::GaugeLocation::TOP_LEFT:
-    rc.right = rc.left + dmr;
-    rc.bottom = rc.top + dmr;
+    rc.right = rc.left + width;
+    rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::TOP_RIGHT:
-    rc.left = rc.right - dmr;
-    rc.bottom = rc.top + dmr;
+    rc.left = rc.right - width;
+    rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::BOTTOM_LEFT:
-    rc.right = rc.left + dmr;
-    rc.top = rc.bottom - dmr;
+    rc.right = rc.left + width;
+    rc.top = rc.bottom - height;
     break;
 
   case TrafficSettings::GaugeLocation::CENTER_TOP:
-    rc.left = (rc.left + rc.right - dmr) / 2 - 1;
-    rc.right = rc.left + dmr;
-    rc.bottom = rc.top + dmr;
+    rc.left = (rc.left + rc.right) / 2 - width - 1;
+    rc.right = rc.left + width;
+    rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::CENTER_BOTTOM:
-    rc.left = (rc.left + rc.right - dmr) / 2 - 1;
-    rc.right = rc.left + dmr;
-    rc.top = rc.bottom - dmr;
+    rc.left = (rc.left + rc.right) / 2 - width - 1;
+    rc.right = rc.left + width;
+    rc.top = rc.bottom - height;
     break;
 
   case TrafficSettings::GaugeLocation::TOP_LEFT_AVOID_IB:
     rc.top = GetMainRect().top;
-    rc.left = GetMainRect().left; 
-    rc.right = rc.left + dmr;
-    rc.bottom = rc.top + dmr;
+    rc.right = rc.left + width;
+    rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::TOP_RIGHT_AVOID_IB:
     rc.top = GetMainRect().top;
-    rc.right = GetMainRect().right;
-    rc.left = rc.right - dmr;
-    rc.bottom = rc.top + dmr;
+    rc.left = rc.right - width;
+    rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::BOTTOM_LEFT_AVOID_IB:
     rc.bottom = GetMainRect().bottom;
-    rc.left = GetMainRect().left;
-    rc.right = rc.left + dmr;
-    rc.top = rc.bottom - dmr;
+    rc.right = rc.left + width;
+    rc.top = rc.bottom - height;
     break;
 
   case TrafficSettings::GaugeLocation::CENTER_TOP_AVOID_IB:
     rc.top = GetMainRect().top;
-    rc.left = (GetMainRect().left + GetMainRect().right - dmr) / 2 - 1;
-    rc.right = rc.left + dmr;
-    rc.bottom = rc.top + dmr;
+    rc.left = (rc.left + rc.right) / 2 - width - 1;
+    rc.right = rc.left + width;
+    rc.bottom = rc.top + height;
     break;
 
   case TrafficSettings::GaugeLocation::CENTER_BOTTOM_AVOID_IB:
     rc.bottom = GetMainRect().bottom;
-    rc.left = (GetMainRect().left + GetMainRect().right - dmr) / 2 - 1;
-    rc.right = rc.left + dmr;
-    rc.top = rc.bottom - dmr;
+    rc.left = (rc.left + rc.right) / 2 - width - 1;
+    rc.right = rc.left + width;
+    rc.top = rc.bottom - height;
     break;
 
   case TrafficSettings::GaugeLocation::BOTTOM_RIGHT_AVOID_IB:
     rc.bottom = GetMainRect().bottom;
-    rc.right = GetMainRect().right;
-    rc.left = rc.right - dmr;
-    rc.top = rc.bottom - dmr;
+    rc.left = rc.right - width;
+    rc.top = rc.bottom - height;
     break;
 
   default:    // aka flBottomRight
-    rc.left = rc.right - dmr;
-    rc.top = rc.bottom - dmr;
+    rc.left = rc.right - width;
+    rc.top = rc.bottom - height;
     break;
   }
 
   ++rc.top;
   ++rc.left;
- // traffic_gauge.Move(rc); // Test mit TA statt FR
-  thermal_assistant.Move(rc);
+  traffic_gauge.Move(rc);
 }
 
 void
