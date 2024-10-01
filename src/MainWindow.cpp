@@ -279,7 +279,7 @@ MainWindow::ReinitialiseLayoutTA(PixelRect rc,
   unsigned sz = std::min(layout.control_size.height,
                          layout.control_size.width) * 2; // der kleinere Wert von 2 x IB-Höhe oder -Breite
   unsigned mw = std::min((GetMainRect().bottom - GetMainRect().top), (GetMainRect().right - GetMainRect().left)); // der kleinere Wert der Kartenfenster-Höhe oder -Breite
-  unsigned dmr = std:min(sz, mw / 2); // der kleinere Wert von sz oder mw/2
+  unsigned dmr = std::min(sz, mw / 2); // der kleinere Wert von sz oder mw/2
   
   switch (CommonInterface::GetUISettings().thermal_assistant_position) {
   case (UISettings::ThermalAssistantPosition::BOTTOM_LEFT_AVOID_IB):  // Test MIT Größenanpassung
