@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR. # xcsoar.pot-letzterStand
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR. #xcsoar-lordfolken.pot
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-23 23:40+0200\n"
+"POT-Creation-Date: 2024-10-24 20:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -786,7 +786,7 @@ msgstr ""
 #: src/Dialogs/Task/TargetDialog.cpp:395
 #: src/Dialogs/Task/AlternatesListDialog.cpp:122
 #: src/Dialogs/KnobTextEntry.cpp:225 src/Dialogs/Weather/WeatherDialog.cpp:41
-#: src/Dialogs/Weather/NOAADetails.cpp:125
+#: src/Dialogs/Weather/PCMetDialog.cpp:36
 #: src/Dialogs/Weather/NOAADetails.cpp:125
 msgid "Close"
 msgstr ""
@@ -1312,6 +1312,11 @@ msgid "Forecast temperature"
 msgstr ""
 
 #: src/Input/InputEventsSettings.cpp:317
+#, c-format
+msgid "%s: %s"
+msgstr ""
+
+#: src/Input/InputEventsSettings.cpp:317
 msgid "Waypoint labels"
 msgstr ""
 
@@ -1340,7 +1345,6 @@ msgstr ""
 #: src/Dialogs/Settings/Panels/PagesConfigPanel.cpp:176
 #: src/Dialogs/Settings/Panels/PagesConfigPanel.cpp:355
 #: src/InfoBoxes/Content/Factory.cpp:926
-#: Data/Input/default.xci:866 Data/Input/default.xci:1247
 #, no-c-format
 msgid "Thermal assistant"
 msgstr ""
@@ -1771,7 +1775,11 @@ msgstr ""
 msgid "Unable to open port"
 msgstr ""
 
-#: src/Device/Descriptor.cpp:1068 src/Device/Descriptor.cpp:1074
+#: src/Device/Descriptor.cpp:1068
+msgid "Sending declaration foobar"
+msgstr ""
+
+#: src/Device/Descriptor.cpp:1074
 msgid "Sending declaration"
 msgstr ""
 
@@ -1794,7 +1802,7 @@ msgstr ""
 msgid "BLE sensor"
 msgstr ""
 
-#: src/Device/Config.cpp:230
+#: src/Device/Config.cpp:230 src/Dialogs/Device/PortPicker.cpp:53
 msgid "BLE port"
 msgstr ""
 
@@ -1821,17 +1829,15 @@ msgid "USB serial"
 msgstr ""
 
 #. create buttons
-#: src/Dialogs/Message.cpp:76 src/Dialogs/MapItemListSettingsDialog.cpp:17
-#: src/Dialogs/WidgetDialog.cpp:260 src/Dialogs/WidgetDialog.cpp:244
+#: src/Dialogs/Message.cpp:76 src/Dialogs/WidgetDialog.cpp:244
+#: src/Dialogs/WidgetDialog.cpp:260
 #: src/Dialogs/MapItemListSettingsDialog.cpp:17
 #: src/Dialogs/Airspace/AirspaceCRendererSettingsDialog.cpp:17
-#: src/Dialogs/Settings/dlgBasicSettings.cpp:356
 #: src/Dialogs/Plane/PlaneDetailsDialog.cpp:182
 #: src/Dialogs/Plane/PlanePolarDialog.cpp:227
 #: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:130 src/Dialogs/NumberEntry.cpp:40
 #: src/Dialogs/NumberEntry.cpp:83 src/Dialogs/NumberEntry.cpp:124
 #: src/Dialogs/TouchTextEntry.cpp:183 src/Dialogs/TimeEntry.cpp:45
-#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:130
 #: src/Dialogs/DateEntry.cpp:41 src/Dialogs/GeoPointEntry.cpp:56
 msgid "OK"
 msgstr ""
@@ -1850,9 +1856,8 @@ msgid "Retry"
 msgstr ""
 
 #: src/Dialogs/Message.cpp:96 src/Dialogs/ListPicker.cpp:163
-#: src/Dialogs/ProgressDialog.cpp:49 src/Dialogs/WidgetDialog.cpp:245
-#: src/Dialogs/WidgetDialog.cpp:261 src/Dialogs/FileManager.cpp:401
-#: src/Dialogs/Device/PortPicker.cpp:294
+#: src/Dialogs/ProgressDialog.cpp:37 src/Dialogs/WidgetDialog.cpp:245
+#: src/Dialogs/WidgetDialog.cpp:261 src/Dialogs/Device/PortPicker.cpp:294
 #: src/Dialogs/Device/BlueFly/BlueFlyConfigurationDialog.cpp:114
 #: src/Dialogs/MapItemListSettingsDialog.cpp:18
 #: src/Dialogs/Airspace/AirspaceCRendererSettingsDialog.cpp:18
@@ -1860,9 +1865,8 @@ msgstr ""
 #: src/Dialogs/ProfileListDialog.cpp:333
 #: src/Dialogs/Plane/PlaneDetailsDialog.cpp:183
 #: src/Dialogs/Plane/PlanePolarDialog.cpp:228
-#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:131
-#: src/Dialogs/Waypoint/WaypointList.cpp:215 src/Dialogs/NumberEntry.cpp:40
-#: src/Dialogs/NumberEntry.cpp:82 src/Dialogs/NumberEntry.cpp:122
+#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:131 src/Dialogs/NumberEntry.cpp:41
+#: src/Dialogs/NumberEntry.cpp:84 src/Dialogs/NumberEntry.cpp:125
 #: src/Dialogs/TouchTextEntry.cpp:187 src/Dialogs/TimeEntry.cpp:46
 #: src/Dialogs/DateEntry.cpp:42 src/Dialogs/GeoPointEntry.cpp:57
 #: src/Dialogs/DownloadFilePicker.cpp:387 Data/Input/default.xci:121
@@ -1876,30 +1880,14 @@ msgstr ""
 msgid "Ignore"
 msgstr ""
 
-#: src/Dialogs/ListPicker.cpp:153
+#: src/Dialogs/ListPicker.cpp:153 src/Dialogs/Device/PortPicker.cpp:293
 #: src/Dialogs/Traffic/TrafficList.cpp:779
 #: src/Dialogs/ProfileListDialog.cpp:331
-#: src/Dialogs/Waypoint/WaypointList.cpp:211
 msgid "Select"
 msgstr ""
 
 #: src/Dialogs/ListPicker.cpp:159 src/Dialogs/HelpDialog.cpp:18
 msgid "Help"
-msgstr ""
-
-#: src/Dialogs/FileManager.cpp:399 src/Dialogs/FilePicker.cpp:30
-#: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:99
-#: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:120
-#: src/Dialogs/Task/Manager/WeGlideTasksPanel.cpp:198
-#: src/Dialogs/Task/Manager/WeGlideTasksPanel.cpp:220
-#: src/Dialogs/Weather/PCMetDialog.cpp:51 src/Dialogs/Weather/NOAAList.cpp:182
-#: src/Dialogs/Weather/NOAAList.cpp:198 src/Dialogs/Weather/NOAADetails.cpp:88
-#: src/Dialogs/Weather/MapOverlayWidget.cpp:355
-#: src/Dialogs/Weather/MapOverlayWidget.cpp:390
-#: src/Dialogs/DownloadFilePicker.cpp:118
-#: src/Dialogs/DownloadFilePicker.cpp:277
-#: src/Dialogs/DownloadFilePicker.cpp:386
-msgid "Download"
 msgstr ""
 
 #: src/Dialogs/FileManager.cpp:399 src/Dialogs/Weather/NOAAList.cpp:99
@@ -2617,7 +2605,6 @@ msgstr ""
 
 #: src/Dialogs/Device/FLARM/ConfigWidget.cpp:129
 #: src/Dialogs/Airspace/dlgAirspaceDetails.cpp:68
-#: src/Dialogs/Airspace/AirspaceList.cpp:404
 #: src/Dialogs/Plane/PlaneDetailsDialog.cpp:95
 #: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:86
 #: src/Dialogs/Waypoint/WaypointList.cpp:388
@@ -3121,12 +3108,6 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-
-#: src/Dialogs/ProfileListDialog.cpp:154
-#: src/Dialogs/Plane/PlaneListDialog.cpp:134
-msgid "Copy"
-msgstr ""
-
 #: src/Dialogs/Settings/dlgConfigInfoboxes.cpp:250
 msgid "Copy Set"
 msgstr ""
@@ -3348,6 +3329,11 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+#: src/Dialogs/ProfileListDialog.cpp:154
+#: src/Dialogs/Plane/PlaneListDialog.cpp:134
+msgid "Copy"
+msgstr ""
+
 #: src/Dialogs/ProfileListDialog.cpp:155 src/Dialogs/ProfileListDialog.cpp:274
 #: src/Dialogs/Plane/PlaneListDialog.cpp:135
 #: src/Dialogs/Plane/PlaneListDialog.cpp:332
@@ -3504,6 +3490,21 @@ msgstr ""
 
 #: src/Dialogs/Plane/PolarShapeEditWidget.cpp:111
 msgid "Polar W"
+msgstr ""
+
+#: src/Dialogs/FilePicker.cpp:30
+#: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:99
+#: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:120
+#: src/Dialogs/Task/Manager/WeGlideTasksPanel.cpp:198
+#: src/Dialogs/Task/Manager/WeGlideTasksPanel.cpp:220
+#: src/Dialogs/Weather/PCMetDialog.cpp:51 src/Dialogs/Weather/NOAAList.cpp:182
+#: src/Dialogs/Weather/NOAAList.cpp:198 src/Dialogs/Weather/NOAADetails.cpp:88
+#: src/Dialogs/Weather/MapOverlayWidget.cpp:355
+#: src/Dialogs/Weather/MapOverlayWidget.cpp:390
+#: src/Dialogs/DownloadFilePicker.cpp:118
+#: src/Dialogs/DownloadFilePicker.cpp:277
+#: src/Dialogs/DownloadFilePicker.cpp:386
+msgid "Download"
 msgstr ""
 
 #: src/Dialogs/dlgInfoBoxAccess.cpp:75 src/Dialogs/dlgInfoBoxAccess.cpp:91
@@ -3910,7 +3911,7 @@ msgstr ""
 msgid "Pan to Waypoint"
 msgstr ""
 
-#: src/Dialogs/Waypoint/dlgWaypointDetails.cpp:405 Data/Input/default.xci:1056
+#: src/Dialogs/Waypoint/dlgWaypointDetails.cpp:406 Data/Input/default.xci:1056
 msgid "GoTo"
 msgstr ""
 
@@ -3930,7 +3931,7 @@ msgstr ""
 
 #: src/Dialogs/Waypoint/Manager.cpp:286
 #: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:122
-#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:129
+#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:129 Data/Input/default.xci:630
 msgid "Waypoint Editor"
 msgstr ""
 
@@ -4040,11 +4041,6 @@ msgstr ""
 msgid ""
 "Sorry, the waypoint editor is not yet available for the UTM coordinate "
 "format."
-msgstr ""
-
-#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:122
-#: src/Dialogs/Waypoint/dlgWaypointEdit.cpp:129 Data/Input/default.xci:630
-msgid "Waypoint Editor"
 msgstr ""
 
 #: src/Dialogs/Waypoint/WaypointList.cpp:429
@@ -4360,7 +4356,8 @@ msgstr ""
 #: src/Dialogs/Settings/Panels/GaugesConfigPanel.cpp:74
 #, no-c-format
 msgid ""
-"Show thermal assistant in bottom left, above/to right of infoboxes (if there)."
+"Show thermal assistant in bottom left, above/to right of infoboxes (if "
+"there)."
 msgstr ""
 
 #: src/Dialogs/Settings/Panels/GaugesConfigPanel.cpp:77
@@ -5723,8 +5720,8 @@ msgstr ""
 #: src/Dialogs/Settings/Panels/SymbolsConfigPanel.cpp:92
 #, no-c-format
 msgid ""
-"Vario-scaled dots with lines. Orange to red = climb. Light blue to dark blue = sink."
-"Zero lift is presented as a yellow line."
+"Vario-scaled dots with lines. Orange to red = climb. Light blue to dark blue "
+"= sink. Zero lift is presented as a yellow line."
 msgstr ""
 
 #: src/Dialogs/Settings/Panels/SymbolsConfigPanel.cpp:95
@@ -6995,17 +6992,6 @@ msgstr ""
 msgid "Task New"
 msgstr ""
 
-#: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:99
-#: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:120
-#: src/Dialogs/Task/Manager/WeGlideTasksPanel.cpp:198
-#: src/Dialogs/Task/Manager/WeGlideTasksPanel.cpp:220
-#: src/Dialogs/Weather/NOAAList.cpp:182 src/Dialogs/Weather/NOAAList.cpp:198
-#: src/Dialogs/Weather/NOAADetails.cpp:88
-#: src/Dialogs/Weather/MapOverlayWidget.cpp:355
-#: src/Dialogs/Weather/MapOverlayWidget.cpp:390
-msgid "Download"
-msgstr ""
-
 #: src/Dialogs/Task/Manager/TaskActionsPanel.cpp:135
 msgid "New Task"
 msgstr ""
@@ -7378,11 +7364,6 @@ msgstr ""
 
 #: src/Dialogs/Settings/Panels/AudioConfigPanel.cpp:40
 msgid "Master Volume"
-msgstr ""
-
-#: src/Dialogs/Weather/NOAAList.cpp:99 src/Dialogs/Weather/NOAADetails.cpp:48
-#: src/Dialogs/Weather/MapOverlayWidget.cpp:211
-msgid "Update"
 msgstr ""
 
 #: src/Dialogs/Weather/NOAAList.cpp:162
@@ -7780,7 +7761,7 @@ msgstr ""
 #: src/InfoBoxes/Content/Factory.cpp:260
 #, no-c-format
 msgid ""
-"Average cross-country speed while on current task, not compensated for"
+"Average cross-country speed while on current task, not compensated for "
 "altitude."
 msgstr ""
 
@@ -10293,6 +10274,10 @@ msgstr ""
 
 #: Data/Input/default.xci:858
 msgid "Traffic List"
+msgstr ""
+
+#: Data/Input/default.xci:866 Data/Input/default.xci:1247
+msgid "Thermal Assistant"
 msgstr ""
 
 #: Data/Input/default.xci:900
