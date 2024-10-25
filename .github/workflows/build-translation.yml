@@ -45,10 +45,13 @@ jobs:
         run: |
           if diff -q po/xcsoar.pox1 po/xcsoar.pox2 > /dev/null; then
             # no update needed, end prog.
-            rm po/xcsoar.pox*
+            echo "No difference found, quit program"
+            rm po/xcsoar.pox1
+            rm po/xcsoar.pox2
             exit 
           else
             # update real xcsoar.pot
+            echo "Difference found, run update-po"
             - name: Update pot files
               run: make update-po
             - name: Push Local Changes
@@ -57,4 +60,5 @@ jobs:
                 commit_message: "Autocommit translation sources"
                 file_pattern: "*.pot"
           fi
-            rm po/xcsoar.pox*
+            rm po/xcsoar.pox1
+            rm po/xcsoar.pox2
