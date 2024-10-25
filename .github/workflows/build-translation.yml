@@ -33,27 +33,29 @@ jobs:
         run: |
           cp po/xcsoar.pot po/xcsoar.pox1
           cp po/xcsoar.pot po/xcsoar.pox2
-          sed -i '11d' po/xcsoar.pox*
+          sed -i '11d' po/xcsoar.pox* # remove timestamps
       - name: Update pox2 file
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Autocommit translation sources"
+          commit_message: "Autocommit test file xcsoar.pox2"
           file_pattern: "*.pox2" # update and push pox2
       - name: Compare old and new test file
         run: |
           if diff -q po/xcsoar.pox1 po/xcsoar.pox2 > /dev/null; then
-             exit # no update needed, end prog.
+            # no update needed, end prog.
+            rm po/xcsoar.pox*
+            exit 
           else
             # update real xcsoar.pot
-            - name: Update pot files
-             run: make update-po
-            - name: Push Local Changes
-              uses: stefanzweifel/git-auto-commit-action@v5
-              with:
-               commit_message: "Autocommit translation sources"
-               file_pattern: "*.pot" # sicherheitshalber ' *.po' rausgenommen.
+      - name: Update pot files
+        run: make update-po
+      - name: Push Local Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Autocommit translation sources"
+          file_pattern: "*.pot"
           fi
-          # remove test files
-          rm po/xcsoar.pox* 
+        # remove test files
+        rm po/xcsoar.pox* 
