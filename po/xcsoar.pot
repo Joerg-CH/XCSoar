@@ -31,7 +31,7 @@ msgstr ""
 msgid "Task"
 msgstr ""
 
-#: src/Task/TypeStrings.cpp:11
+#: src/Task/TypeStrings.cpp:112
 #, no-c-format
 msgid "FAI badges/records"
 msgstr ""
