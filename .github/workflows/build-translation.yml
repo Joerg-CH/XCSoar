@@ -33,7 +33,7 @@ jobs:
         run: |
           cp po/xcsoar.pot po/xcsoar.pox1
           cp po/xcsoar.pot po/xcsoar.pox2
-          sed -i '11d' po/xcsoar.pox* # remove timestamps
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox* # remove lines with timestamp
       - name: Update pox2 file
         run: make update-po
       - name: Push Local Changes
