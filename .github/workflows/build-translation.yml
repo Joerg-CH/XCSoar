@@ -8,13 +8,13 @@ on:
       - 'src/**'
       - 'po/**'
       - 'data/**'
-    permissions:
-      contents: write
-
+    
 jobs:
   autocommit-pot-files:
     runs-on: ubuntu-22.04
     container: debian:bookworm-slim
+    permissions:
+      contents: write  
     steps:
       - name: Install checkout dependencies
         run: |
@@ -48,24 +48,11 @@ jobs:
         run: |
           if diff -q po/xcsoar.pot po/xcsoar.pox; then
             echo "No difference found, restore backup file"
-            rm po/xcsoar.pot # modified file without timestamp
             mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot          
           else
-            # update real xcsoar.pot
+            # update real xcsoar.pot, but first restore it 
+            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot     
             echo "Differences found, run normal update-po"
-            - name: Install checkout dependencies
-              run: |
-                apt-get update
-                apt-get install -y --no-install-recommends git \
-                ca-certificates rsync openssh-client
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Install dependencies
-              run: |
-                ./ide/provisioning/install-debian-packages.sh UPDATE
-                ./ide/provisioning/install-debian-packages.sh BASE
-            - name: make working directory a safe commit dir again
-              run: git config --global --add safe.directory /__w/XCSoar/XCSoar
             - name: Update pot files
               run: make update-po
             - name: Push Local Changes
