@@ -29,26 +29,29 @@ jobs:
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-      - name: Check for differences
+      - name: Create files for check
         run: |
-          cp po/xcsoar.pot po/xcsoar.pox1
-          cp po/xcsoar.pot po/xcsoar.pox2
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox* # remove lines with timestamp
-      - name: Update pox2 file
+          cp po/xcsoar.pot po/xcsoar.pot0 # backup of old pot-file
+          cp po/xcsoar.pot po/xcsoar.pox # file to compare with new pot-file
+          #sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # remove lines with timestamp
+      - name: Update pot file for check
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit test file xcsoar.pox2"
-          file_pattern: "*.pox2" # update and push pox2
-      - name: Compare old and new test file
+          file_pattern: "*.pot" # update and push pot
+      - name: Remove timestamps
         run: |
-          if diff -q po/xcsoar.pox1 po/xcsoar.pox2 > /dev/null; then
-            # no update needed, end prog.
-            echo "No difference found, quit program"
-            rm po/xcsoar.pox1
-            rm po/xcsoar.pox2
-            exit 
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # old file
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
+      - name: Compare old and new file
+        run: |
+          if diff -q po/xcsoar.pot po/xcsoar.pox > /dev/null; then
+            echo "No difference found, restore backup file"
+            rm po/xcsoar.pot # modified file
+            rm po/xcsoar.pox # test file
+            mv po/xcsoar.pot0 po/xcsoar.pot # restore back-upped file            
           else
             # update real xcsoar.pot
             echo "Difference found, run update-po"
@@ -58,7 +61,6 @@ jobs:
               uses: stefanzweifel/git-auto-commit-action@v5
               with:
                 commit_message: "Autocommit translation sources"
-                file_pattern: "*.pot"
+                file_pattern: "*.pot" # add ' *.po' after test runs finished
           fi
-            rm po/xcsoar.pox1
-            rm po/xcsoar.pox2
+            rm po/xcsoar.pox # delete test file
