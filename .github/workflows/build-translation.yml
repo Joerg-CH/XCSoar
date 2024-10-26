@@ -54,6 +54,8 @@ jobs:
             # update real xcsoar.pot
             echo "Differences found, run normal update-po"
             - name: Update pot files
+            - name: make working directory a safe commit dir again
+              run: git config --global --add safe.directory /__w/XCSoar/XCSoar
               run: make update-po
             - name: Push Local Changes
               uses: stefanzweifel/git-auto-commit-action@v5
