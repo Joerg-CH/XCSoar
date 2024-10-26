@@ -33,28 +33,26 @@ jobs:
         run: |
           cp po/xcsoar.pot po/xcsoar.pot0 # backup of old pot-file
           cp po/xcsoar.pot po/xcsoar.pox # file to compare with new pot-file
-          #sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # remove lines with timestamp
       - name: Update pot file for check
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Autocommit test file xcsoar.pox2"
+          commit_message: "Autocommit xcsoar.pot for test"
           file_pattern: "*.pot" # update and push pot
       - name: Remove timestamps
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # old file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
-      - name: Compare old and new file
+      - name: Compare new file with old file
         run: |
-          if diff -q po/xcsoar.pot po/xcsoar.pox > /dev/null; then
+          if diff -q po/xcsoar.pot po/xcsoar.pox; then
             echo "No difference found, restore backup file"
-            rm po/xcsoar.pot # modified file
-            rm po/xcsoar.pox # test file
-            mv po/xcsoar.pot0 po/xcsoar.pot # restore back-upped file            
+            rm po/xcsoar.pot # modified file without timestamp
+            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot          
           else
             # update real xcsoar.pot
-            echo "Difference found, run update-po"
+            echo "Differences found, run normal update-po"
             - name: Update pot files
               run: make update-po
             - name: Push Local Changes
@@ -63,4 +61,4 @@ jobs:
                 commit_message: "Autocommit translation sources"
                 file_pattern: "*.pot" # add ' *.po' after test runs finished
           fi
-            rm po/xcsoar.pox # delete test file
+          rm po/xcsoar.pox # delete test file
