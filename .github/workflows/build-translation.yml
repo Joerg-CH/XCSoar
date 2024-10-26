@@ -53,6 +53,17 @@ jobs:
           else
             # update real xcsoar.pot
             echo "Differences found, run normal update-po"
+            - name: Install checkout dependencies
+              run: |
+                apt-get update
+                apt-get install -y --no-install-recommends git \
+                ca-certificates rsync openssh-client
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Install dependencies
+              run: |
+                ./ide/provisioning/install-debian-packages.sh UPDATE
+                ./ide/provisioning/install-debian-packages.sh BASE
             - name: make working directory a safe commit dir again
               run: git config --global --add safe.directory /__w/XCSoar/XCSoar
             - name: Update pot files
