@@ -34,8 +34,8 @@ jobs:
         run: |
           mkdir temp
           cp -r po temp # creates temp/po/xcsoar.pot and xx.po
-          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
-                          
+          exit
+                                    
       - name: Update pot files
         run: make update-po
       - name: Push Local Changes
@@ -45,7 +45,9 @@ jobs:
           file_pattern: "*.pot"
           
       - name: copy new pot file
-        run: cp po/xcsoar.pot po/xcsoar.pot2 # new file to compare
+        run: |
+          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
+          cp po/xcsoar.pot po/xcsoar.pot2 # new file to compare
       - name: remove timestamps
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
