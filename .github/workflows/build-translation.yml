@@ -33,7 +33,7 @@ jobs:
       - name: Backup old files
         run: |
           mkdir temp
-          cp po temp
+          cp -r po temp
           cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
                           
       - name: Update pot files
