@@ -58,7 +58,7 @@ jobs:
           else
             echo "Differences found, keep new files"
           fi
-      - name: Clean-up
+      #- name: Clean-up
         #run: |
         #  rm -r temp # empty temp-dir
         #  rm -d temp # delete temp-dir
