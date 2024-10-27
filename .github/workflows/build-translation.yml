@@ -45,7 +45,7 @@ jobs:
           file_pattern: "*.pot"
           
       - name: copy new pot file
-        run: cp po/xcsoar.pot xcsoar.pot2 # new file to compare
+        run: cp po/xcsoar.pot po/xcsoar.pot2 # new file to compare
       - name: remove timestamps
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
