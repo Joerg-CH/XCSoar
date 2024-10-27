@@ -16,6 +16,12 @@ jobs:
     permissions:
       contents: write  
     steps:
+      - name: Backup old files
+        run: |
+          mkdir temp
+          cp po/*.* temp
+          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
+          
       - name: Install checkout dependencies
         run: |
           apt-get update
@@ -29,32 +35,32 @@ jobs:
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-      - name: Create files pot0, pot1
-        run: |
-          cp po/xcsoar.pot po/xcsoar.pot0 # backup of old pot-file
-          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
-      - name: Update pot file for check
+                
+      - name: Update pot files
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit translation sources"
-          file_pattern: "*.pot" # update and push pot
-      - name: Remove timestamps
+          file_pattern: "*.pot"
+          
+      - name: copy new pot file
+        run: cp po/xcsoar.pot xcsoar.pot2 # new file to compare
+      - name: remove timestamps
         run: |
-          cp po/xcsoar.pot xcsoar.pot2 # new file to compare
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot2 # new file
       - name: Check for differences
         run: |
           if diff -q po/xcsoar.pot1 po/xcsoar.pot2; then
-            echo "No difference found, restore backup file"
-            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot
-            rm po/xcsoar.pot1 # delete old test file
-            rm po/xcsoar.pot2 # delete new test file
+            echo "No difference found, restore backup files"
+            mv temp/*.* po # move backup files back to po-dir
           else
-            echo "Differences found, keep new .pot file"
-            rm po/xcsoar.pot0 # delete old backup file
-            rm po/xcsoar.pot1 # delete old test file
-            rm po/xcsoar.pot2 # delete new test file
+            echo "Differences found, keep new files"
+            
           fi
+      - name: Clean-up
+        run: |
+          rm -r temp # delete temp-dir
+          rm po/xcsoar.pot1 # delete old test file
+          rm po/xcsoar.pot2 # delete new test file
