@@ -60,6 +60,7 @@ jobs:
           fi
       - name: Clean-up
         run: |
-          rm -r temp # delete temp-dir
+          rm -r temp # empty temp-dir
+          rm -d temp # delete temp-dir
           rm po/xcsoar.pot1 # delete old test file
           rm po/xcsoar.pot2 # delete new test file
