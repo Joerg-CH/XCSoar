@@ -42,7 +42,7 @@ jobs:
           file_pattern: "*.pot" # update and push pot
       - name: Remove timestamps
         run: |
-		      cp po/xcsoar.pot xcsoar.pot2 # new file to compare
+          cp po/xcsoar.pot xcsoar.pot2 # new file to compare
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot2 # new file
       - name: Check for differences
@@ -50,11 +50,11 @@ jobs:
           if diff -q po/xcsoar.pot1 po/xcsoar.pot2; then
             echo "No difference found, restore backup file"
             mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot
-			      rm po/xcsoar.pot1 # delete old test file
-			      rm po/xcsoar.pot2 # delete new test file
-			    else
-		        echo "Differences found, keep new .pot file"
-			      rm po/xcsoar.pot0 # delete old backup file
-			      rm po/xcsoar.pot1 # delete old test file
-			      rm po/xcsoar.pot2 # delete new test file
-		      fi
+            rm po/xcsoar.pot1 # delete old test file
+            rm po/xcsoar.pot2 # delete new test file
+          else
+            echo "Differences found, keep new .pot file"
+            rm po/xcsoar.pot0 # delete old backup file
+            rm po/xcsoar.pot1 # delete old test file
+            rm po/xcsoar.pot2 # delete new test file
+          fi
