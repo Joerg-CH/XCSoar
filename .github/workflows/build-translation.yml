@@ -16,12 +16,6 @@ jobs:
     permissions:
       contents: write  
     steps:
-      - name: Backup old files
-        run: |
-          mkdir temp
-          cp po temp
-          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
-          
       - name: Install checkout dependencies
         run: |
           apt-get update
@@ -35,7 +29,13 @@ jobs:
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-                
+        
+      - name: Backup old files
+        run: |
+          mkdir temp
+          cp po temp
+          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
+                          
       - name: Update pot files
         run: make update-po
       - name: Push Local Changes
@@ -57,7 +57,6 @@ jobs:
             mv temp/*.* po # move backup files back to po-dir
           else
             echo "Differences found, keep new files"
-            
           fi
       - name: Clean-up
         run: |
