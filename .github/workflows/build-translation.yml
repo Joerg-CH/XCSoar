@@ -33,7 +33,7 @@ jobs:
       - name: Backup old files
         run: |
           mkdir temp
-          cp -r po temp
+          cp -r po temp # creates temp/po/xcsoar.pot and xx.po
           cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
                           
       - name: Update pot files
@@ -59,8 +59,8 @@ jobs:
             echo "Differences found, keep new files"
           fi
       - name: Clean-up
-        run: |
-          rm -r temp # empty temp-dir
-          rm -d temp # delete temp-dir
-          rm po/xcsoar.pot1 # delete old test file
-          rm po/xcsoar.pot2 # delete new test file
+        #run: |
+        #  rm -r temp # empty temp-dir
+        #  rm -d temp # delete temp-dir
+        #  rm po/xcsoar.pot1 # delete old test file
+        #  rm po/xcsoar.pot2 # delete new test file
