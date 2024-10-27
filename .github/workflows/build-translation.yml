@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir temp
           cp -r po temp # creates temp/po/xcsoar.pot and xx.po
-          exit
+          exit 0123
                                     
       - name: Update pot files
         run: make update-po
