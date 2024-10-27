@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir temp
           cp -r po temp # creates temp/po/xcsoar.pot and xx.po
-          exit 0123
+          cp temp/po/xcsoar.pot po/xcsoar.pot0
                                     
       - name: Update pot files
         run: make update-po
@@ -60,9 +60,9 @@ jobs:
           else
             echo "Differences found, keep new files"
           fi
-      #- name: Clean-up
-        #run: |
-        #  rm -r temp # empty temp-dir
-        #  rm -d temp # delete temp-dir
-        #  rm po/xcsoar.pot1 # delete old test file
-        #  rm po/xcsoar.pot2 # delete new test file
+      - name: Clean-up
+        run: |
+          rm -r temp # empty temp-dir
+          rm -d temp # delete temp-dir
+          rm po/xcsoar.pot1 # delete old test file
+          rm po/xcsoar.pot2 # delete new test file
