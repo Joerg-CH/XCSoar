@@ -54,7 +54,7 @@ jobs:
         run: |
           if diff -q po/xcsoar.pot1 po/xcsoar.pot2; then
             echo "No difference found, restore backup files"
-            mv temp/*.* po # move backup files back to po-dir
+            cp -r temp po # copy backup files back to po-dir
           else
             echo "Differences found, keep new files"
           fi
