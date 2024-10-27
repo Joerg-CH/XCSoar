@@ -29,36 +29,32 @@ jobs:
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-      - name: Create files for check
+      - name: Create files pot0, pot1
         run: |
           cp po/xcsoar.pot po/xcsoar.pot0 # backup of old pot-file
-          cp po/xcsoar.pot po/xcsoar.pox # file to compare with new pot-file
+          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
       - name: Update pot file for check
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Autocommit xcsoar.pot for test"
+          commit_message: "Autocommit translation sources"
           file_pattern: "*.pot" # update and push pot
       - name: Remove timestamps
         run: |
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # old file
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
-      - name: Compare new file with old file
+		      cp po/xcsoar.pot xcsoar.pot2 # new file to compare
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot2 # new file
+      - name: Check for differences
         run: |
-          if diff -q po/xcsoar.pot po/xcsoar.pox; then
+          if diff -q po/xcsoar.pot1 po/xcsoar.pot2; then
             echo "No difference found, restore backup file"
-            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot          
-          else
-            # update real xcsoar.pot, but first restore it 
-            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot     
-            echo "Differences found, run normal update-po"
-            - name: Update pot files
-              run: make update-po
-            - name: Push Local Changes
-              uses: stefanzweifel/git-auto-commit-action@v5
-              with:
-                commit_message: "Autocommit translation sources"
-                file_pattern: "*.pot" # add ' *.po' after test runs finished
-          fi
-          rm po/xcsoar.pox # delete test file
+            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot
+			      rm po/xcsoar.pot1 # delete old test file
+			      rm po/xcsoar.pot2 # delete new test file
+			    else
+		        echo "Differences found, keep new .pot file"
+			      rm po/xcsoar.pot0 # delete old backup file
+			      rm po/xcsoar.pot1 # delete old test file
+			      rm po/xcsoar.pot2 # delete new test file
+		      fi
