@@ -55,6 +55,16 @@ jobs:
         run: |
           sed -i '/^"POT-Creation-Date:/d' ./temp/xcsoar1.po # old file
           sed -i '/^"POT-Creation-Date:/d' ./temp/xcsoar2.po # new file
+
+      - name: Check for differences
+        run: |
+          if diff -q ./temp/xcsoar1.po ./temp/xcsoar2.po; then
+            echo "No difference found, restore backup file"
+            mv -v -T ./temp/xcsoar0.po ./po/xcsoar.pot # move backup files back to po-dir
+          else
+            echo "Differences found, keep new files"
+          fi
+
         
 
 
