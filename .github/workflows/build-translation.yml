@@ -32,35 +32,11 @@ jobs:
 
       - name: Backup existing file in po
         run: |
-          cp -v ./po/xcsoar.pot ./po/xcsoar.px0 # old file as backup
-          cp -v ./po/xcsoar.pot ./po/xcsoar.px1 # old file to compare
-          
-      - name: Update pot files
-        run: make update-po
-      - name: Push Local Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Autocommit translation sources"
-          file_pattern: "*.pot"
-          
-      - name: copy new pot file
-        run: |
-          cp -v ./po/xcsoar.pot ./po/xcsoar.px2 # new file to compare
-          
-      - name: remove timestamps
-        run: |
-          sed -i '/^"POT-Creation-Date:/d' ./po/xcsoar.px1 # old file
-          sed -i '/^"POT-Creation-Date:/d' ./po/xcsoar.px2 # new file
-
-      - name: Check for differences
-        run: |
-          if diff -q ./po/xcsoar.px1 ./po/xcsoar.px2; then
-            echo "No difference found, restore backup file"
-            cp -v ./po/xcsoar.px0 ./po/xcsoar.pot # copy backup file back
-          else
-            echo "Differences found, keep new files"
-          fi
-
+          cp -v po/xcsoar.pot po/xcsoar.px0 # old file as backup
+          cp -v po/xcsoar.pot po/xcsoar.px1 # old file to compare
+          cp -v ./po/xcsoar.pot ./po/xcsoar.px4 # old file as backup
+          cp -v ./po/xcsoar.pot ./po/xcsoar.px5 # old file to compare       
+     
         
 
 
