@@ -33,9 +33,10 @@ jobs:
       - name: Backup existing files in temp
         run: |
           mkdir -p temp
-          cp -v -r po/xcsoar.pot temp # später um *.po erweitern
-          cp -v po/xcsoar.pot temp/xcsoar1.po # old file to compare
-          
+          cp -v -r po/xcsoar.pot temp 
+          mv -v -T temp/xcsoar.pot temp/xcsoar1.po # old file to compare
+          cp -v -r po/xcsoar.pot temp
+                    
       - name: Update pot files
         run: make update-po
       - name: Push Local Changes
@@ -45,7 +46,9 @@ jobs:
           file_pattern: "*.pot"
           
       - name: copy new pot file
-        run: cp -v po/xcsoar.pot temp/xcsoar2.po # new file to compare
+        run: |
+          cp -v po/xcsoar.pot temp # new file to compare
+          mv -v -T temp/xcsoar.pot temp/xcsoar2.po
       - name: remove timestamps
         run: |
           sed -i '/^"POT-Creation-Date:/d' temp/xcsoar1.po # old file
