@@ -62,7 +62,7 @@ jobs:
         run: |
           cd tempo/
           ls -l
-          cd ./po
+          cd ./po/
           ls -l
       
      
