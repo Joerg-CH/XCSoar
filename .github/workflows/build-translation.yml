@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install dependencies
         run: |
-          ./ide/provisioning/install-debian-packages.sh UPDATE
+          ./ide/provisioning/install-debian-packages.sh UPDAT
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
@@ -33,11 +33,33 @@ jobs:
       - name: Backup existing file in po
         run: |
           mkdir -v -p ./tempo/
-          cp -v po/xcsoar.pot po/xcsoar.px0
-          cp -v po/xcsoar.pot tempo/xcsoar.px1
-          cp -v ./po/xcsoar.pot ./po/xcsoar.px4
-          cp -v ./po/xcsoar.pot ./po/xcsoar.txt
-          cd ./tempo/
+          cp -v po/xcsoar.pot tempo/xcsoar.px0 # backup
+          cp -v po/xcsoar.pot tempo/xcsoar.px1 # old file to test
+       
+      - name: Update pot files
+        run: make update-po
+      - name: Push Local Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Autocommit translation sources"
+          file_pattern: "*.pot"
+          
+      - name: copy new pot file and remove timestamps
+        run: |
+          cp -v po/xcsoar.pot tempo/xcsoar.px2 # new file to compare
+          sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px1 # old file
+          sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px2 # new file
+      - name: Check for differences
+        run: |
+          if diff -q tempo/xcsoar.px1 tempo/xcsoar.px2; then
+            echo "No difference found, restore backup file"
+            cp -v tempo/xcsoar.px0 po/xcsoar.pot # copy backup files back to po-dir
+          else
+            echo "Differences found, keep new files in ./po/"
+          fi
+      - name: Clean-up
+        run: |
+          cd tempo/
           ls
      
         
