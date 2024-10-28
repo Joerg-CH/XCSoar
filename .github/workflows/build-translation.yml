@@ -61,5 +61,6 @@ jobs:
       - name: Clean-up
         run: |
           cd po/
+          mv xcsoar.pot xcsoar.pt # to check if file is virtual or not
           ls -l
             
