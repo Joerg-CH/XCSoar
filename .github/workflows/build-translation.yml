@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p temp
           cp -v -r po/xcsoar.pot temp # später um *.po erweitern
-          cp -v po/xcsoar.pot temp/xcsoar.pot1 # old file to compare
+          cp -v po/xcsoar.pot temp/xcsoar1.po # old file to compare
           
       - name: Update pot files
         run: make update-po
@@ -45,11 +45,11 @@ jobs:
           file_pattern: "*.pot"
           
       - name: copy new pot file
-        run: cp -v po/xcsoar.pot temp/xcsoar.pot2 # new file to compare
+        run: cp -v po/xcsoar.pot temp/xcsoar2.po # new file to compare
       - name: remove timestamps
         run: |
-          sed -i '/^"POT-Creation-Date:/d' temp/xcsoar.pot1 # old file
-          sed -i '/^"POT-Creation-Date:/d' temp/xcsoar.pot2 # new file
+          sed -i '/^"POT-Creation-Date:/d' temp/xcsoar1.po # old file
+          sed -i '/^"POT-Creation-Date:/d' temp/xcsoar2.po # new file
         
 
 
