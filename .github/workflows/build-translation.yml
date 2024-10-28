@@ -30,10 +30,10 @@ jobs:
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
-      - name: Backup existing file in po
+      - name: copy existing file in tempo/
         run: |
           mkdir -v -p ./tempo/
-          cp -v po/xcsoar.pot tempo/xcsoar.px0 # backup
+          cp -v po/xcsoar.pot tempo/xcsoar.pox # file to update
           cp -v po/xcsoar.pot tempo/xcsoar.px1 # old file to test
        
       - name: Update pot files
@@ -42,21 +42,26 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit translation sources"
-          file_pattern: "*.pot"
+          file_pattern: "*.pox" # update only the test files
           
       - name: copy new pot file and remove timestamps
         run: |
-          cp -v po/xcsoar.pot tempo/xcsoar.px2 # new file to compare
+          #cp -v po/xcsoar.pot tempo/xcsoar.px2 # new file to compare
           sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px1 # old file
-          sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px2 # new file
+          sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.pox # new file
       - name: Check for differences
         run: |
-          if diff -q tempo/xcsoar.px1 tempo/xcsoar.px2; then
-            echo "No difference found, restore backup file"
-            rm -v po/xcsoar.pot # remove modified .pot
-            cp -v tempo/xcsoar.px0 po/xcsoar.pot # copy backup files back to po-dir
+          if diff -q tempo/xcsoar.px1 tempo/xcsoar.pox; then
+            echo "No difference found, no updates in ./po needed"
           else
-            echo "Differences found, keep new files in ./po/"
+            echo "Differences found, run real update-po
+            - name: Update pot files
+              run: make update-po
+            - name: Push Local Changes
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: "Autocommit translation sources"
+                file_pattern: "*.pot" # update real files
           fi
       - name: Clean-up
         run: |
