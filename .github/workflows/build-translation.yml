@@ -33,20 +33,20 @@ jobs:
       - name: copy existing file in tempo/
         run: |
           mkdir -v -p ./tempo/
-          cp -v po/xcsoar.pot tempo/xcsoar.pox # file to update
           cp -v po/xcsoar.pot tempo/xcsoar.px1 # old file to test
-       
+          cp -v po/xcsoar.pot tempo/xcsoar.pox # file to update
+          cp -v po/xcsoar.pot tempo/xcsoar.pot # original for comparison
+                 
       - name: Update pot files
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit translation sources"
-          file_pattern: "*.pox" # update only the test files
+          file_pattern: "*.pox" # update only the test file
           
-      - name: copy new pot file and remove timestamps
+      - name: remove timestamps
         run: |
-          #cp -v po/xcsoar.pot tempo/xcsoar.px2 # new file to compare
           sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px1 # old file
           sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.pox # new file
       - name: Check for differences
