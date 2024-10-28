@@ -43,5 +43,8 @@ jobs:
         with:
           commit_message: "Autocommit translation sources"
           file_pattern: "*.pot"
+          
+      - name: copy new pot file
+        run: cp po/xcsoar.pot po/xcsoar.pot2 # new file to compare
 
 
