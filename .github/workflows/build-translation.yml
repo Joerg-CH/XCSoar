@@ -1,4 +1,4 @@
----
+it---
 on:
   workflow_dispatch:
   push:
@@ -37,7 +37,7 @@ jobs:
           mv -v -T ./temp/xcsoar.pot ./temp/xcsoar0.po # old file as backup
           cp -v -r ./po/xcsoar.pot ./temp
           mv -v -T ./temp/xcsoar.pot ./temp/xcsoar1.po # old file to compare
-          
+          exit 1124
                     
       - name: Update pot files
         run: make update-po
