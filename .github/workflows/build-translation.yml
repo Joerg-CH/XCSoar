@@ -44,11 +44,11 @@ jobs:
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # old file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
-      - name: Compare new file with old file
+      - name: Compare new file with old file, no clean-up
         run: |
           if diff -q po/xcsoar.pot po/xcsoar.pox; then
             echo "No difference found, restore backup file"
-            mv po/xcsoar.pot0 po/xcsoar.pot # rename back-upped file to .pot          
+            cp po/xcsoar.pot0 po/xcsoar.pot # copy back-upped file to .pot          
           else
             # update real xcsoar.pot, but first restore it 
             cp po/xcsoar.pot0 po/xcsoar.pot # copy back-upped file to .pot     
