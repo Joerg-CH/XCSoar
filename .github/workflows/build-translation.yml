@@ -60,12 +60,6 @@ jobs:
           fi
       - name: Clean-up
         run: |
-          cd tempo/
+          cd po/
           ls -l
-          cd ./po/
-          ls -l
-      
-     
-        
-
-
+            
