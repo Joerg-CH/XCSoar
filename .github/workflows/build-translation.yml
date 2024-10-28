@@ -29,40 +29,9 @@ jobs:
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-        
-      - name: Backup old files
+
+      - name: Backup existing files
         run: |
           mkdir temp
-          cp -r po temp # creates temp/po/xcsoar.pot and xx.po
-          cp temp/po/xcsoar.pot po/xcsoar.pot0
-                                    
-      - name: Update pot files
-        run: make update-po
-      - name: Push Local Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Autocommit translation sources"
-          file_pattern: "*.pot"
-          
-      - name: copy new pot file
-        run: |
-          cp po/xcsoar.pot po/xcsoar.pot1 # file to compare with new pot-file
-          cp po/xcsoar.pot po/xcsoar.pot2 # new file to compare
-      - name: remove timestamps
-        run: |
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot2 # new file
-      - name: Check for differences
-        run: |
-          if diff -q po/xcsoar.pot1 po/xcsoar.pot2; then
-            echo "No difference found, restore backup files"
-            cp -r temp po # copy backup files back to po-dir
-          else
-            echo "Differences found, keep new files"
-          fi
-      - name: Clean-up
-        run: |
-          rm -r temp/po # empty temp-dir
-          rm -d temp # delete temp-dir
-          rm po/xcsoar.pot1 # delete old test file
-          rm po/xcsoar.pot2 # delete new test file
+          cp -v -r po/*.* temp
+
