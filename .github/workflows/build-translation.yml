@@ -45,6 +45,6 @@ jobs:
           file_pattern: "*.pot"
           
       - name: copy new pot file
-        run: cp po/xcsoar.pot po/xcsoar.pot2 # new file to compare
+        run: cp -v po/xcsoar.pot po/xcsoar.pot2 # new file to compare
 
 
