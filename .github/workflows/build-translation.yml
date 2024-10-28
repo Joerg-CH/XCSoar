@@ -32,7 +32,7 @@ jobs:
 
       - name: Backup existing files in temp
         run: |
-          mkdir -p ./temp
+          mkdir -v -p ./temp
           cp -v -r ./po/xcsoar.pot ./temp 
           mv -v -T ./temp/xcsoar.pot ./temp/xcsoar0.po # old file as backup
           cp -v -r ./po/xcsoar.pot ./temp
