@@ -54,7 +54,7 @@ jobs:
           if diff -q tempo/xcsoar.px1 tempo/xcsoar.pox; then
             echo "No difference found, no updates in ./po needed"
           else
-            echo "Differences found, run real update-po
+            echo "Differences found, run real update-po"
             - name: Update pot files
               run: make update-po
             - name: Push Local Changes
@@ -65,7 +65,6 @@ jobs:
           fi
       - name: Clean-up
         run: |
-          cd po/
-          mv xcsoar.pot xcsoar.pt # to check if file is virtual or not
+          cd tempo/
           ls -l
             
