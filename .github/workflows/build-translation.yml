@@ -45,10 +45,10 @@ jobs:
           commit_message: "Autocommit translation sources"
           file_pattern: "*.pox" # update only the test file
           
-      - name: remove timestamps
-        run: |
-          sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px1 # old file
-          sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.pox # new file
+      #- name: remove timestamps
+       # run: |
+        #  sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px1 # old file
+        #  sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.pox # new file
       - name: Check for differences
         run: |
           if diff --normal tempo/xcsoar.px1 tempo/xcsoar.pox; then
