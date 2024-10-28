@@ -33,5 +33,5 @@ jobs:
       - name: Backup existing files
         run: |
           mkdir temp
-          cp -v -r po/*.* temp
+          cp -v -r po/xcsoar.pot temp
 
