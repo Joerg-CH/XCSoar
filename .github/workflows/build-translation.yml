@@ -32,7 +32,7 @@ jobs:
 
       - name: Backup existing files in temp
         run: |
-          mkdir temp
+          mkdir -p temp
           cp -v -r po/xcsoar.pot temp # später um *.po erweitern
           cp -v po/xcsoar.pot po/xcsoar.pot1 # old file to compare
           
@@ -46,5 +46,10 @@ jobs:
           
       - name: copy new pot file
         run: cp -v po/xcsoar.pot po/xcsoar.pot2 # new file to compare
+      - name: remove timestamps
+        run: |
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot1 # old file
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot2 # new file
+        
 
 
