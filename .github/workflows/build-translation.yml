@@ -1,4 +1,4 @@
-it---
+---
 on:
   workflow_dispatch:
   push:
