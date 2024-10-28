@@ -29,39 +29,38 @@ jobs:
           ./ide/provisioning/install-debian-packages.sh BASE
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-      - name: Create files for check
+
+      - name: Backup existing files in temp
         run: |
-          cp po/xcsoar.pot po/xcsoar.pot0 # backup of old pot-file
-          cp po/xcsoar.pot po/xcsoar.pox # file to compare with new pot-file
-      - name: Update pot file for check
+          mkdir -v -p ./temp/
+          cp -v -r ./po/xcsoar.pot ./temp/
+          mv -v -T ./temp/xcsoar.pot ./temp/xcsoar0.po # old file as backup
+          cp -v -r ./po/xcsoar.pot ./temp/
+          mv -v -T ./temp/xcsoar.pot ./temp/xcsoar1.po # old file to compare
+                    
+      - name: Update pot files
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Autocommit xcsoar.pot for test"
-          file_pattern: "*.pot" # update and push pot
-      - name: Remove timestamps
+          commit_message: "Autocommit translation sources"
+          file_pattern: "*.pot"
+          
+      - name: copy new pot file
         run: |
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pox # old file
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
-      - name: Compare new file with old file, no clean-up
+          cp -v ./po/xcsoar.pot ./temp/ # new file to compare
+          mv -v -T ./temp/xcsoar.pot ./temp/xcsoar2.po
+      - name: remove timestamps
         run: |
-          if diff -q po/xcsoar.pot po/xcsoar.pox; then
+          sed -i '/^"POT-Creation-Date:/d' ./temp/xcsoar1.po # old file
+          sed -i '/^"POT-Creation-Date:/d' ./temp/xcsoar2.po # new file
+
+      - name: Check for differences
+        run: |
+          if diff -q ./temp/xcsoar1.po ./temp/xcsoar2.po; then
             echo "No difference found, restore backup file"
-            cp po/xcsoar.pot0 po/xcsoar.pot # copy back-upped file to .pot          
+            mv -v -T ./temp/xcsoar0.po ./po/xcsoar.pot # move backup files back to po-dir
           else
-            # update real xcsoar.pot, but first restore it 
-            cp po/xcsoar.pot0 po/xcsoar.pot # copy back-upped file to .pot     
-            echo "Differences found, run normal update-po"
-            - name: Update pot files
-              run: make update-po
-            - name: Push Local Changes
-              uses: stefanzweifel/git-auto-commit-action@v5
-              with:
-                commit_message: "Autocommit translation sources"
-                file_pattern: "*.pot" # add ' *.po' after test runs finished
+            echo "Differences found, keep new files"
           fi
-      #- name: Clean-up
-       # run: |
-       #   rm po/xcsoar.pox
-       #   rm po/xcsoar.pot0
+          
