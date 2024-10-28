@@ -53,6 +53,7 @@ jobs:
         run: |
           if diff -q tempo/xcsoar.px1 tempo/xcsoar.px2; then
             echo "No difference found, restore backup file"
+            rm -v po/xcsoar.pot # remove modified .pot
             cp -v tempo/xcsoar.px0 po/xcsoar.pot # copy backup files back to po-dir
           else
             echo "Differences found, keep new files in ./po/"
@@ -60,7 +61,10 @@ jobs:
       - name: Clean-up
         run: |
           cd tempo/
-          ls
+          ls -l
+          cd ./po
+          ls -l
+      
      
         
 
