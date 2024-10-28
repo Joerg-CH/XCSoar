@@ -35,5 +35,13 @@ jobs:
           mkdir temp
           cp -v -r po/xcsoar.pot temp # später um *.po erweitern
           cp -v po/xcsoar.pot po/xcsoar.pot1 # old file to compare
+          
+      - name: Update pot files
+        run: make update-po
+      - name: Push Local Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Autocommit translation sources"
+          file_pattern: "*.pot"
 
 
