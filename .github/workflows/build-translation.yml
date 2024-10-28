@@ -30,8 +30,10 @@ jobs:
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
-      - name: Backup existing files
+      - name: Backup existing files in temp
         run: |
           mkdir temp
-          cp -v -r po/xcsoar.pot temp
+          cp -v -r po/xcsoar.pot temp # später um *.po erweitern
+          cp -v po/xcsoar.pot po/xcsoar.pot1 # old file to compare
+
 
