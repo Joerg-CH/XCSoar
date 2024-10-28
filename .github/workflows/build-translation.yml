@@ -32,10 +32,13 @@ jobs:
 
       - name: Backup existing file in po
         run: |
+          mkdir -v -p ./tempo/
           cp -v po/xcsoar.pot po/xcsoar.px0
-          cp -v xcsoar.pot xcsoar.px1
+          cp -v po/xcsoar.pot tempo/xcsoar.px1
           cp -v ./po/xcsoar.pot ./po/xcsoar.px4
-          cp -v ./po/xcsoar.pot ./po/xcsoar.txt     
+          cp -v ./po/xcsoar.pot ./po/xcsoar.txt
+          cd ./tempo/
+          ls
      
         
 
