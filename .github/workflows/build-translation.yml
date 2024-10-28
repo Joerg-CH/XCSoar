@@ -32,10 +32,10 @@ jobs:
 
       - name: Backup existing file in po
         run: |
-          cp -v po/xcsoar.pot po/xcsoar.px0 # old file as backup
-          cp -v po/xcsoar.pot po/xcsoar.px1 # old file to compare
-          cp -v ./po/xcsoar.pot ./po/xcsoar.px4 # old file as backup
-          cp -v ./po/xcsoar.pot ./po/xcsoar.px5 # old file to compare       
+          cp -v po/xcsoar.pot po/xcsoar.px0
+          cp -v xcsoar.pot xcsoar.px1
+          cp -v ./po/xcsoar.pot ./po/xcsoar.px4
+          cp -v ./po/xcsoar.pot ./po/xcsoar.txt     
      
         
 
