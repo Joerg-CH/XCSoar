@@ -52,10 +52,10 @@ jobs:
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px2 # new file
       - name: Check for differences
         run: |
-          if diff --normal po/xcsoar.px1 po/xcsoar.pot; then
-            echo "No difference found, restore original pot file"
-            rm -v po/xcsoar.pot # remove modified pot file
-            mv -v po/xcsoar.px0 po/xcsoar.pot # use backup pot file
+          if diff --normal po/xcsoar.px1 po/xcsoar.px2; then
+            echo "No difference found, keep original pot file"
+            # rm -v po/xcsoar.pot # remove modified pot file
+            # mv -v po/xcsoar.px0 po/xcsoar.pot # use backup pot file
           else
             echo "Differences found, run real update-po"
             - name: Update pot files
