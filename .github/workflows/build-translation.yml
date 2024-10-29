@@ -50,6 +50,7 @@ jobs:
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px1 # old file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px2 # new file
+          cd ./po/
           ls -l *.px* # to verify presence of files
       - name: Check for differences
         run: |
