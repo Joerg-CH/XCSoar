@@ -35,6 +35,7 @@ jobs:
           cp -v po/xcsoar.pot po/xcsoar.px1 # old file to test
           cp -v po/xcsoar.pot po/xcsoar.px2 # file to update
           cp -v po/xcsoar.pot po/xcsoar.px0 # original as backup
+          cd ./po/
           ls -l # to verify presence of files
           
       - name: Update pot files
@@ -51,7 +52,7 @@ jobs:
         #  sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
       - name: Check for differences
         run: |
-          if diff --normal tempo/xcsoar.px1 tempo/xcsoar.pot; then
+          if diff --normal po/xcsoar.px1 po/xcsoar.pot; then
             echo "No difference found, no updates in ./po needed"
             rm -v po/xcsoar.pot # remove modified pot file
             mv -v po/xcsoar.px0 po/xcsoar.pot # use backup pot file
