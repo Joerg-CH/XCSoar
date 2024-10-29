@@ -30,29 +30,31 @@ jobs:
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
-      - name: copy existing file in tempo/
+      - name: duplicate existing file in po/
         run: |
-          mkdir -v -p ./tempo/
-          cp -v po/xcsoar.pot tempo/xcsoar.px1 # old file to test
-          cp -v po/xcsoar.pot tempo/xcsoar.pox # file to update
-          cp -v po/xcsoar.pot tempo/xcsoar.pot # original for comparison
-                 
+          cp -v po/xcsoar.pot po/xcsoar.px1 # old file to test
+          cp -v po/xcsoar.pot po/xcsoar.px2 # file to update
+          cp -v po/xcsoar.pot po/xcsoar.px0 # original as backup
+          ls -l # to verify presence of files
+          
       - name: Update pot files
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit translation sources"
-          file_pattern: "*.pox" # update only the test file
+          file_pattern: "*.pot" 
           
       #- name: remove timestamps
        # run: |
-        #  sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.px1 # old file
-        #  sed -i '/^"POT-Creation-Date:/d' tempo/xcsoar.pox # new file
+        #  sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px1 # old file
+        #  sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
       - name: Check for differences
         run: |
-          if diff --normal tempo/xcsoar.px1 tempo/xcsoar.pox; then
+          if diff --normal tempo/xcsoar.px1 tempo/xcsoar.pot; then
             echo "No difference found, no updates in ./po needed"
+            rm -v po/xcsoar.pot # remove modified pot file
+            mv -v po/xcsoar.px0 po/xcsoar.pot # use backup pot file
           else
             echo "Differences found, run real update-po"
             - name: Update pot files
@@ -65,6 +67,6 @@ jobs:
           fi
       - name: Clean-up
         run: |
-          cd tempo/
           ls -l
+          # rm -v po/xcsoar.px1
             
