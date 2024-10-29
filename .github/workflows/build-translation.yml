@@ -36,7 +36,7 @@ jobs:
           cp -v po/xcsoar.pot po/xcsoar.px2 # file to update
           cp -v po/xcsoar.pot po/xcsoar.px0 # original as backup
           cd ./po/
-          ls -l *.px* # to verify presence of files
+          ls -l xcsoar.* # to verify presence of files
           
       - name: Update px2 file
         run: make update-po
@@ -51,7 +51,7 @@ jobs:
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px1 # old file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px2 # new file
           cd ./po/
-          ls -l *.px* # to verify presence of files
+          ls -l xcsoar.* # to verify presence of files
       - name: Check for differences
         run: |
           if diff --normal po/xcsoar.px1 po/xcsoar.px2; then
@@ -71,7 +71,7 @@ jobs:
       - name: Clean-up
         run: |
           cd ./po/
-          ls -l *.px* # to verify presence of files
+          ls -l xcsoar.* # to verify presence of files
           # rm -v po/xcsoar.px1
           # rm -v po/xcsoar.px2
             
