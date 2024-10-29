@@ -19,7 +19,7 @@ msgstr ""
 
 #. #-#-#-#-#  cpp.pot (PACKAGE VERSION)  #-#-#-#-#
 #. .. append " - Task #[n]" suffix to the task name
-#: src/Task/TaskStore.cpp:49 src/Menu/ExpandMacros.cpp:356
+#: src/Task/TaskStore.cpp:49 src/Menu/ExpandMacros.cpp:355
 #: src/Input/InputEventsSettings.cpp:296 src/Dialogs/dlgAnalysis.cpp:535
 #: src/Dialogs/dlgStatus.cpp:77
 #: src/Dialogs/Settings/Panels/RouteConfigPanel.cpp:128
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Task"
 msgstr ""
 
-#: src/Task/TypeStrings.cpp:11
+#: src/Task/TypeStrings.cpp:11 src/Task/TypeStrings.cpp:11
 #, no-c-format
 msgid "FAI badges/records"
 msgstr ""
