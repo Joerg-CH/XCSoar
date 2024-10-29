@@ -44,12 +44,12 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit test file"
-          file_pattern: "*.pot" 
+          file_pattern: "*.px2" 
           
       - name: remove timestamps
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px1 # old file
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # new file
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.px2 # new file
       - name: Check for differences
         run: |
           if diff --normal po/xcsoar.px1 po/xcsoar.pot; then
@@ -71,4 +71,5 @@ jobs:
           cd ./po/
           ls -l
           # rm -v po/xcsoar.px1
+          # rm -v po/xcsoar.px2
             
