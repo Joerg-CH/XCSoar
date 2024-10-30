@@ -47,11 +47,11 @@ jobs:
           commit_message: "Autocommit test file"
           file_pattern: "*.pot" 
           
-      - name: remove timestamps
+      - name: remove timestamp of test file
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # updated file
           cd ./po/
-          ls -l xcsoar_*.* # to verify presence and size of files
+          ls -l xcsoar*.* # to verify presence and size of files
       - name: Check for differences
         run: |
           if diff --normal po/xcsoar.pot po/xcsoar_reference.px1; then
@@ -60,6 +60,21 @@ jobs:
             #mv -v po/xcsoar_backup.px0 po/xcsoar.pot # use backup pot file
           else
             echo "Differences found, run real update-po"
+            
+            - name: Install checkout dependencies
+              run: |
+                apt-get update
+                apt-get install -y --no-install-recommends git \
+                ca-certificates rsync openssh-client
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Install dependencies
+                run: |
+                  ./ide/provisioning/install-debian-packages.sh UPDAT
+                  ./ide/provisioning/install-debian-packages.sh BASE
+            - name: make working directory a safe commit dir
+                run: git config --global --add safe.directory /__w/XCSoar/XCSoar
+                
             - name: Update pot files
               run: make update-po
             - name: Push Local Changes
