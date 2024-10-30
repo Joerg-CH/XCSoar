@@ -16,18 +16,18 @@ jobs:
     permissions:
       contents: write  
     steps:
-      - name: Install checkout dependencies
+      - name: Install checkout dependencies test
         run: |
           apt-get update
           apt-get install -y --no-install-recommends git \
           ca-certificates rsync openssh-client
-      - name: Checkout
+      - name: Checkout test
         uses: actions/checkout@v4
-      - name: Install dependencies
+      - name: Install dependencies test
         run: |
           ./ide/provisioning/install-debian-packages.sh UPDAT
           ./ide/provisioning/install-debian-packages.sh BASE
-      - name: make working directory a safe commit dir
+      - name: make working directory a safe commit dir test
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
       - name: duplicate existing file in po/ and remove timestamp of ref-file
