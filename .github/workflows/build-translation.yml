@@ -68,12 +68,13 @@ jobs:
               with:
                 commit_message: "Autocommit translation sources"
                 file_pattern: "*.pot"
-              exit_code=$?
-              if [ $exit_code -ne 0 ]; then
-                echo "Fehler: Exit Code $exit_code"
-                exit
-              fi
           fi
+          exit_code=$?
+          if [ $exit_code -ne 0 ]; then
+            echo "Fehler: Exit Code $exit_code"
+            exit 0
+          fi
+          
       - name: Clean-up
         run: |
           cd ./po/
