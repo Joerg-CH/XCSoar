@@ -16,18 +16,18 @@ jobs:
     permissions:
       contents: write  
     steps:
-      - name: Install checkout dependencies test
+      - name: Install checkout dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends git \
           ca-certificates rsync openssh-client
-      - name: Checkout test
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Install dependencies test
+      - name: Install dependencies
         run: |
           ./ide/provisioning/install-debian-packages.sh UPDAT
           ./ide/provisioning/install-debian-packages.sh BASE
-      - name: make working directory a safe commit dir test
+      - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
       - name: duplicate existing file in po/ and remove timestamp of ref-file
@@ -39,9 +39,9 @@ jobs:
           cd ./po/
           ls -l xcsoar_*.* # to verify presence of files
           
-      - name: Update pot file test
+      - name: Update pot file
         run: make update-po
-      - name: Push Local Changes test
+      - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit test file"
@@ -60,21 +60,7 @@ jobs:
             #mv -v po/xcsoar_backup.px0 po/xcsoar.pot # use backup pot file
           else
             echo "Differences found, run real update-po"
-            
-            - name: Install checkout dependencies
-              run: |
-                apt-get update
-                apt-get install -y --no-install-recommends git \
-                ca-certificates rsync openssh-client
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Install dependencies
-                run: |
-                  ./ide/provisioning/install-debian-packages.sh UPDAT
-                  ./ide/provisioning/install-debian-packages.sh BASE
-            - name: make working directory a safe commit dir
-                run: git config --global --add safe.directory /__w/XCSoar/XCSoar
-                
+                          
             - name: Update pot files
               run: make update-po
             - name: Push Local Changes
@@ -82,6 +68,11 @@ jobs:
               with:
                 commit_message: "Autocommit translation sources"
                 file_pattern: "*.pot"
+              exit_code=$?
+              if [ $exit_code -ne 0 ]; then
+                echo "Fehler: Exit Code $exit_code"
+                exit
+              fi
           fi
       - name: Clean-up
         run: |
