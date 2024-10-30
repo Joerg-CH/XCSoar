@@ -30,18 +30,18 @@ jobs:
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
-      - name: duplicate existing file in po/
+      - name: duplicate existing file in po/ and remove timestamp of ref-file
         run: |
           cp -v po/xcsoar.pot po/xcsoar_backup.px0 # original as backup
           cp -v po/xcsoar.pot po/xcsoar_reference.px1 # old file as reference
-          #cp -v po/xcsoar.pot po/xcsoar_test.pot # file to update for test
+          cp -v po/xcsoar.pot po/xcsoar_test.pot # file to update for test with timestamp
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar_reference.px1 # ref file without timestamp
           cd ./po/
           ls -l xcsoar_*.* # to verify presence of files
           
-      - name: Update pot file
+      - name: Update pot file test
         run: make update-po
-      - name: Push Local Changes
+      - name: Push Local Changes test
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit test file"
