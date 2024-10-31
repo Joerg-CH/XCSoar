@@ -50,15 +50,20 @@ jobs:
           cd ./po/
           ls -l xcsoar.*
           
-      - name: Check for differences and push (4)
+      - name: Check for differences (4)
         id: check_test
         run: |
           if diff --normal po/xcsoar.ref po/xcsoar.old; then
             echo "No differences found, no update"
+            
           else
             echo "Differences, push local changes"  
-            uses: stefanzweifel/git-auto-commit-action@v5
-            with:
-              commit_message: "Autocommit translation sources"
-              file_pattern: "*.pot"
+            run: echo "::set-output name=do_update::true"
           fi
+          
+      - name: Push Local Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Autocommit translation sources"
+          file_pattern: "*.pot"
+        if: steps.check_test.outputs.do_update == 'true'
