@@ -55,10 +55,9 @@ jobs:
         run: |
           if diff --normal po/xcsoar.ref po/xcsoar.old; then
             echo "No differences found, no update"
-            
           else
-            echo "Differences, push local changes"  
-            run: echo "::set-output name=do_update::true"
+            echo "Differences found, push local changes"  
+            echo "::set-output name=do_update::true"
           fi
           
       - name: Push Local Changes
