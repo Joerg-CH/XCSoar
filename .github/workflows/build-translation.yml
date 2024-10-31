@@ -37,42 +37,40 @@ jobs:
           cp -v po/xcsoar.pot po/xcsoar_test.pot # file to update for test with timestamp
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar_reference.px1 # ref file without timestamp
           cd ./po/
-          ls -l xcsoar_*.* # to verify presence of files
+          ls -l xcsoar*.* # to verify presence of files
           
       - name: Update pot file
         run: make update-po
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Autocommit test file"
-          file_pattern: "*.pot" 
+          commit_message: "Autocommit test files" # xcsoar.pot and xcsoar_test.pot
+          file_pattern: "*.pot"
+          
+      - name: Show size of updated files
+        run: |
+          cd ./po/
+          ls -l xcsoar*.* # to verify presence and size of files
           
       - name: remove timestamp of test file
         run: |
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # updated file
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar_test.pot # updated file
           cd ./po/
           ls -l xcsoar*.* # to verify presence and size of files
       - name: Check for differences
         run: |
-          if diff --normal po/xcsoar.pot po/xcsoar_reference.px1; then
-            echo "No difference found, keep original pot file"
+          if diff --normal po/xcsoar_test.pot po/xcsoar_reference.px1; then
+            echo "No difference found, restore original pot file"
             #rm -v po/xcsoar.pot
             #mv -v po/xcsoar_backup.px0 po/xcsoar.pot # use backup pot file
           else
-            echo "Differences found, run real update-po"
-                          
-            
+            echo "Differences found, keep updated xcsoar.pot" 
           fi
-          exit_code=$?
-          if [ $exit_code -ne 0 ]; then
-            echo "Fehler: Exit Code $exit_code"
-            exit 0
-          fi
-          
+                    
       - name: Clean-up
         run: |
           cd ./po/
-          ls -l xcsoar_*.* # to verify presence of files
+          ls -l xcsoar*.* # to verify presence of files
           # rm -v po/xcsoar_test.pot
           # rm -v po/xcsoar_reference.px1
             
