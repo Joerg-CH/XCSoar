@@ -65,4 +65,4 @@ jobs:
         with:
           commit_message: "Autocommit translation sources"
           file_pattern: "*.pot"
-        if: $GITHUB_OUTPUT.do_update == 'true'
+        if: $do_update == 'true'
