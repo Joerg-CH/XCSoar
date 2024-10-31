@@ -56,8 +56,7 @@ jobs:
             echo "No difference found, Programm beenden"
           else
             echo "Differences found, push updated file"
-            name: Push Local Changes
-            uses: stefanzweifel/git-auto-commit-action@v5
+            stefanzweifel/git-auto-commit-action@v5
             with:
               commit_message: "Autocommit translation sources"
               file_pattern: "*.pot"
