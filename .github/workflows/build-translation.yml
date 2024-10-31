@@ -30,37 +30,29 @@ jobs:
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
-      - name: Backup existing files in temp
+      - name: Copy xcsoar.pot (1)
         run: |
-          mkdir -v -p ./temp/
-          cp -v -r ./po/xcsoar.pot ./temp/
-          mv -v -T ./temp/xcsoar.pot ./temp/xcsoar0.po # old file as backup
-          cp -v -r ./po/xcsoar.pot ./temp/
-          mv -v -T ./temp/xcsoar.pot ./temp/xcsoar1.po # old file to compare
-                    
-      - name: Update pot files
+          cp -v po/xcsoar.pot po/xcsoar.old
+          cd ./po/
+          ls -l xcsoar.*
+          
+      - name: Update pot files (2)
         run: make update-po
-      - name: Push Local Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Autocommit translation sources"
-          file_pattern: "*.pot"
-          
-      - name: copy new pot file
-        run: |
-          cp -v ./po/xcsoar.pot ./temp/ # new file to compare
-          mv -v -T ./temp/xcsoar.pot ./temp/xcsoar2.po
-      - name: remove timestamps
-        run: |
-          sed -i '/^"POT-Creation-Date:/d' ./temp/xcsoar1.po # old file
-          sed -i '/^"POT-Creation-Date:/d' ./temp/xcsoar2.po # new file
 
-      - name: Check for differences
+      - name: remove timestamps (3)
         run: |
-          if diff -q ./temp/xcsoar1.po ./temp/xcsoar2.po; then
-            echo "No difference found, restore backup file"
-            mv -v -T ./temp/xcsoar0.po ./po/xcsoar.pot # move backup files back to po-dir
-          else
-            echo "Differences found, keep new files"
-          fi
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # updated file
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.old # old file
           
+      - name: Check for differences (4)
+        run: |
+          if diff - -normal po/xcsoar.pot po/xcsoar.old; then
+            echo "No difference found, do not push"
+          else
+            echo "Differences found, push updated files"
+            - name: Push Local Changes
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: "Autocommit translation sources"
+                file_pattern: "*.pot"
+          fi         
