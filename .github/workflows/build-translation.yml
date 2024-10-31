@@ -57,11 +57,10 @@ jobs:
             echo "No differences found, no update"
           else
             echo "Differences found, push local changes"  
-            echo "::set-output name=do_update::true"
             echo "do-update=true" >> $GITHUB_OUTPUT
           fi
           
-      - name: Push Local Changes
+      - name: Push Local Changes (5)
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Autocommit translation sources"
