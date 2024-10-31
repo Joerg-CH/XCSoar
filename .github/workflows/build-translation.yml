@@ -30,6 +30,15 @@ jobs:
       - name: make working directory a safe commit dir
         run: git config --global --add safe.directory /__w/XCSoar/XCSoar
 
+      - name: test for timestamp
+        run: |
+          cd ./po/
+          ls -l xcsoar*.* # to verify presence of files
+          cp -v po/xcsoar.pot po/xcsoar_backup.px0 # original as backup
+          cd ./po/
+          ls -l xcsoar*.* # to verify presence of files
+          exit 0
+
       - name: duplicate existing file in po/ and remove timestamp of ref-file
         run: |
           cp -v po/xcsoar.pot po/xcsoar_backup.px0 # original as backup
