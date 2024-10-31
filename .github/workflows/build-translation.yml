@@ -32,23 +32,27 @@ jobs:
 
       - name: Copy xcsoar.pot (1)
         run: |
-          cp -v po/xcsoar.pot po/xcsoar.old
+          cp -v po/xcsoar.pot po/xcsoar.old         
           cd ./po/
           ls -l xcsoar.*
           
       - name: Update pot files (2)
-        run: make update-po
+        run: |
+          make update-po
+          cd ./po/
+          ls -l xcsoar.*
 
       - name: remove timestamps (3)
         run: |
-          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # updated file
+          cp -v po/xcsoar.pot po/xcsoar.ref # keep xcsoar.pot to push
+          sed -i '/^"POT-Creation-Date:/d' po/xcsoar.ref # updated file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.old # old file
           cd ./po/
           ls -l xcsoar.*
           
       - name: Check for differences (4)
         run: |
-          if diff --normal po/xcsoar.pot po/xcsoar.old; then
+          if diff --normal po/xcsoar.ref po/xcsoar.old; then
             echo "No difference found, do not push"
           else
             echo "Differences found, push updated files"
