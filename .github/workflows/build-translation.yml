@@ -54,18 +54,12 @@ jobs:
         run: |
           if diff --normal po/xcsoar.ref po/xcsoar.old; then
             echo "No difference found, Programm beenden"
-            goto="Programmende"
           else
             echo "Differences found, push updated file"
+            name: Push Local Changes (5)
+            uses: stefanzweifel/git-auto-commit-action@v5
+            with:
+              commit_message: "Autocommit translation sources"
+              file_pattern: "*.pot"
           fi    
-       
-      - name: Push Local Changes (5)
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Autocommit translation sources"
-          file_pattern: "*.pot"
-
-      - name: Prog beenden ohne Push
-        run: |
-          # Definiere Sprungmarke
-          :Programmende
+      
