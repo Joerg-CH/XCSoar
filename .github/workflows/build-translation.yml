@@ -62,8 +62,8 @@ jobs:
         run: |
           if diff --normal po/xcsoar_test.pot po/xcsoar_reference.px1; then
             echo "No difference found, restore original pot file"
-            #rm -v po/xcsoar.pot
-            #mv -v po/xcsoar_backup.px0 po/xcsoar.pot # use backup pot file
+            rm -v po/xcsoar.pot
+            mv -v po/xcsoar_backup.px0 po/xcsoar.pot # use backup pot file
           else
             echo "Differences found, keep updated xcsoar.pot" 
           fi
