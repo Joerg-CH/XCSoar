@@ -43,10 +43,12 @@ jobs:
         run: |
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.pot # updated file
           sed -i '/^"POT-Creation-Date:/d' po/xcsoar.old # old file
+          cd ./po/
+          ls -l xcsoar.*
           
       - name: Check for differences (4)
         run: |
-          if diff - -normal po/xcsoar.pot po/xcsoar.old; then
+          if diff --normal po/xcsoar.pot po/xcsoar.old; then
             echo "No difference found, do not push"
           else
             echo "Differences found, push updated files"
