@@ -53,8 +53,8 @@ jobs:
       - name: Push if differences (4)
         run: |
           if diff --normal po/xcsoar.ref po/xcsoar.old != 'true'
-            echo "Differences found, push updated file"
-            uses: stefanzweifel/git-auto-commit-action@v5
-            with:
-              commit_message: "Autocommit translation sources"
-              file_pattern: "*.pot"
+          echo "Differences found, push updated file"
+          uses: stefanzweifel/git-auto-commit-action@v5
+          with:
+            commit_message: "Autocommit translation sources"
+            file_pattern: "*.pot"
